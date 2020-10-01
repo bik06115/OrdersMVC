@@ -1,0 +1,68 @@
+﻿@model IEnumerable<OrdersMVC.Models.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Index</h1>
+
+  
+    <table class="table">
+        <thead>
+            <tr><a asp-action="Create" class="btn btn-lg btn-outline-primary">Create New</a></tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ManufacturingDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpireDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManufacturingDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpireDate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-sm btn-outline-warning">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-sm btn-outline-light">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Opps. You are not logged in.</h3>
+}
